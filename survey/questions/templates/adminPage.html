@@ -1,11 +1,20 @@
-{% extends "base.html" %}
-{% block content %}
-{% for question in questions %}
-    <li>{{question}}</li>
-    {% for choice in choices %}
-        {% if choice.question == question %}
-        <ul>{{choice}} - {{choice.votes}}</ul>
-        {% endif %}
+<head>
+    <title>Admin</title>
+</head>
+<body>
+        <header>
+            <a href = "/questions/">View Site</a>
+            <a href = "/admin">Add Questions</a>
+            <a href="/logout">Log Out</a>
+        </header>
+
+    <br />
+    {% for question in questions %}
+        <li>{{question}}</li>
+        {% for choice in choices %}
+            {% if choice.question == question %}
+                <ul>{{choice}} - {{choice.votes}}</ul>
+            {% endif %}
+        {% endfor %}
     {% endfor %}
-{% endfor %}
-{% endblock content %}
+</body>

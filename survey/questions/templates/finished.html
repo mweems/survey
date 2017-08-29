@@ -1,10 +1,21 @@
-{% extends "base.html" %}
-{% block content %}
-<h1>There are no more questions.</h1>
-<h2>Thank you for taking our survey!</h2>
+<head>
+    <title>Survey</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <header>
+            <a href = "/questions/adminPage">Admin Page</a>
+            <a href="logout">Log Out</a>
+        </header>
+    {% else %}
+        <header><a href = 'admin'>Admin Login</a></header>
+    {% endif %}
+    <br />
+    <h1>There are no more questions.</h1>
+    <h2>Thank you for taking our survey!</h2>
 
-<form action="/questions/" method="post">
-{% csrf_token %}
-<input type="submit" value="Vote Again" />
-</form>
-{% endblock content %}
+    <form action="/questions/" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Vote Again" />
+    </form>
+</body>

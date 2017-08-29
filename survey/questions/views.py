@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Question, Choice
 from random import randint
 
+
 def index(request):
 	question_list = Question.objects.all()
 	for question in question_list:
@@ -35,13 +36,12 @@ def adminPage(request):
 	question_list = Question.objects.all()
 	choices = Choice.objects.all()
 	context = {'questions': question_list, 'choices': choices}
-
 	return render(request, 'adminPage.html', context)
+
 
 def get_random_question(question_list):
 	if not question_list:
 		return None
-
 	question = question_list[randint(0, question_list.count() - 1)]
 	choices = Choice.objects.filter(question=question)
 	return {'question': question, 'choices': choices}
