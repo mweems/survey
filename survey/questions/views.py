@@ -23,7 +23,7 @@ def vote(request, question_id):
 	else:
 		choice.votes += 1
 		choice.save()
-		question_list = Question.objects.all()
+		question_list = Question.objects.all().exclude(pk=question_id)
 		context = {'question_list': question_list}
 		return render(request, 'index.html', context) 
 
