@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>There are no more questions.</h1>
+<h2>Thank you for taking our survey!</h2>
+
+<form action="/questions/" method="post">
+{% csrf_token %}
+<input type="submit" value="Vote Again" />
+</form>
+{% endblock content %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+{% for question in questions %}
+    <li>{{question}}</li>
+    {% for choice in choices %}
+        {% if choice.question == question %}
+        <ul>{{choice}} - {{choice.votes}}</ul>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% endblock content %}

@@ -7,9 +7,9 @@ def index(request):
 	for question in question_list:
 		question.has_voted_on = False
 		question.save()
-	question = question_list[randint(0, question_list.count() - 1)]
-	choices = Choice.objects.filter(question=question)
-	context = {'question': question, 'choices': choices}
+	context = get_random_question(question_list)
+	if not context:
+		return render(request, 'finished.html')
 	return render(request, 'detail.html', context)
 
 def detail(request, question_id):
@@ -20,16 +20,30 @@ def detail(request, question_id):
 
 def vote(request, question_id):
 	question = Question.objects.get(pk=question_id)
-	try: 
-		choice = question.choice_set.get(pk=request.POST['choice'])
-	except:
-		choices = Choice.objects.filter(question=question)
-		context = {'question': question, 'choices': choices, 'error_message': 'You did not select a choice'}
-		return render(request, 'detail.html', context)
-	else:
-		choice.votes += 1
-		choice.save()
-		question_list = Question.objects.all().exclude(pk=question_id)
-		context = {'question_list': question_list}
-		return render(request, 'index.html', context) 
+	choice = question.choice_set.get(pk=request.POST['choice'])
+	choice.votes += 1
+	choice.save()
+	question.has_voted_on = True
+	question.save()
+	question_list = Question.objects.all().exclude(has_voted_on=True)
+	context = get_random_question(question_list)
+	if not context:
+		return render(request, 'finished.html')
+	return render(request, 'detail.html', context)
+
+def adminPage(request):
+	question_list = Question.objects.all()
+	choices = Choice.objects.all()
+	context = {'questions': question_list, 'choices': choices}
+
+	return render(request, 'adminPage.html', context)
+
+def get_random_question(question_list):
+	if not question_list:
+		return None
+
+	question = question_list[randint(0, question_list.count() - 1)]
+	choices = Choice.objects.filter(question=question)
+	return {'question': question, 'choices': choices}
+
 
