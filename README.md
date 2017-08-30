@@ -2,24 +2,24 @@
 
 Navigate to the directory where you want to save this project
 
-git clone https://github.com/mweems/survey.git
+_git clone https://github.com/mweems/survey.git_
 
-cd survey
+_cd survey_
 
-create superuser python manage.py createsuperuser
+create superuser _python manage.py createsuperuser_
 
 
 Ensure you have a mysql server running
 
 create a mysql database
 
-Name: survey
+**Name: survey**
 
-User: admin
+**User: admin**
 
-Password: adminPassword
+**Password: adminPassword**
 
 
-start the django server python manage.py runserver
+start the django server _python manage.py runserver_
 
 go to website http://localhost
