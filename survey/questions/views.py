@@ -13,35 +13,62 @@ def index(request):
 		return render(request, 'finished.html')
 	return render(request, 'detail.html', context)
 
-def myLogin(request, user=None):
+def myLogin(request):
+	if request.method == 'POST':
+		logout(request)
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user:
+			login(request, user)
+			return redirect('adminPage')
+		else:
+			return render(request, 'login.html', {'error_message': 'Incorrect user name or password'})
+
 	return render(request, 'login.html')
 
-def getUser(request, user=None):
-	logout(request)
-	username = request.POST['username']
-	password = request.POST['password']
-	user = authenticate(username=username, password=password)
-	if user:
-		login(request, user)
-		return redirect('adminPage')
-
-	return redirect('index')
-
 def deleteQuestion(request):
-	Question.objects.filter(pk=request.POST['question']).delete()
+	try:
+		Question.objects.filter(pk=request.POST['question']).delete()
+	except:
+		question_list = Question.objects.all()
+		choices = Choice.objects.all()
+		context = {'questions': question_list, 'choices': choices, 'error_message': 'You must select a question to delete it'}
+		return render(request, 'adminPage.html', context)
 	return redirect('adminPage')
 
 def addQuestion(request):
-	Question.objects.create(question_text=request.POST['question'])
+	try:
+		Question.objects.create(question_text=request.POST['question'])
+	except:
+		question_list = Question.objects.all()
+		choices = Choice.objects.all()
+		context = {'questions': question_list, 'choices': choices, 'error_message': 'You must add a question'}
+		return render(request, 'adminPage.html', context)
+
 	return redirect('adminPage')
 
 def addChoice(request):
-	question = Question.objects.get(pk=request.POST['question'])
-	Choice.objects.create(question=question, choice_text=request.POST['choice'])
+	try:
+		question = Question.objects.get(pk=request.POST['question'])
+		Choice.objects.create(question=question, choice_text=request.POST['choice'])
+	except:
+		question_list = Question.objects.all()
+		choices = Choice.objects.all()
+		context = {'questions': question_list, 'choices': choices, 'error_message': 'You must select a question and enter choice text'}
+		return render(request, 'adminPage.html', context)
+
 	return redirect('adminPage')
 
 def deleteChoice(request):
-	Choice.objects.filter(pk=request.POST['choice']).delete()
+	try:
+		Choice.objects.filter(pk=request.POST['choice']).delete()
+	except:
+		question_list = Question.objects.all()
+		choices = Choice.objects.all()
+		context = {'questions': question_list, 'choices': choices, 'error_message': 'You must select a choice to delete it'}
+		return render(request, 'adminPage.html', context)
+
 	return redirect('adminPage')
 
 def detail(request, question_id):

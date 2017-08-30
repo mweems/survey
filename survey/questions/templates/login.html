@@ -2,8 +2,9 @@
 
 
 {% block content %}
-   <form method="POST" action='/questions/getUser/'>
+   <form method="POST" action='/questions/login/'>
         {% csrf_token %}
+        {% if error_message %}<p class='center'><strong>{{ error_message }}</strong></p>{% endif %}
         <p>
             <label>Username</label>
             <input type="text" name="username">

@@ -13,5 +13,4 @@ urlpatterns = [
     url(r'^add_choice/$', views.addChoice, name='addChoice'),
     url(r'^delete_choice/$', views.deleteChoice, name='deleteChoice'),
     url(r'^login/$', views.myLogin, name='login'),
-    url(r'^getUser/$', views.getUser, name='getUser')
 ]
