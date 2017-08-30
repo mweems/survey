@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'questions/style.css' %}" />
     {% for question in questions %}
-        <h2 style='text-align:center'>{{question}}</h2>
+        <h2 class='center'>{{question}}</h2>
         {% for choice in choices %}
             {% if choice.question == question %}
-                <ul style='text-align:center'>{{choice}} - {{choice.votes}}</ul>
+                <ul class='center'>{{choice}} - {{choice.votes}}</ul>
             {% endif %}
         {% endfor %}
     {% endfor %}

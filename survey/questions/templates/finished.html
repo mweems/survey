@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'questions/style.css' %}" />
     <title>Survey</title>
 
-    <h2 style='text-align:center'>Thank you for taking our survey!</h2>
-    <h2 style='text-align:center'>There are no more questions.</h2> 
+    <h2 class='center'>Thank you for taking our survey!</h2>
+    <h2 class='center'>There are no more questions.</h2> 
 
-    <form action="/questions/" method="post" style='text-align:center'>
+    <form action="/questions/" method="post" class='center'>
         {% csrf_token %}
         <input type="submit" value="Vote Again" />
     </form>

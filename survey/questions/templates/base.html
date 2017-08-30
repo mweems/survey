@@ -1,17 +1,19 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'questions/style.css' %}" />
 <head>
     <title>Survey</title>
 </head>
 <body>
     {% if user.is_authenticated %}
-        <header style='float:right'>
-            <a href = "/questions/adminPage" style='padding:10px'>Results</a>
-            <a href = "/questions/" style='padding:10px'>Survey</a>
-            <a href = "/admin" style='padding:10px'>Admin</a>
-            <a href="/logout" style='padding:10px'>Log Out</a>
+        <header class='right'>
+            <a href = "/questions/adminPage" class='space'>Results</a>
+            <a href = "/questions/" class='space'>Survey</a>
+            <a href = "/admin" class='space'>Admin</a>
+            <a href="/logout" class='space'>Log Out</a>
         </header>
     {% else %}
-        <header style='float:right'>
-            <a href = '/admin' style='padding:10px'>Login</a>
+        <header class='center'>
+            <a href = '/admin' class='space'>Login</a>
         </header>
     {% endif %}
     <br />
