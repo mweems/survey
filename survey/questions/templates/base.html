@@ -1,0 +1,18 @@
+<head>
+    <title>Survey</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <header style='float:right'>
+            <a href = "/questions/adminPage" style='padding:10px'>Results</a>
+            <a href = "/questions/" style='padding:10px'>Survey</a>
+            <a href = "/admin" style='padding:10px'>Admin</a>
+            <a href="/logout" style='padding:10px'>Log Out</a>
+        </header>
+    {% else %}
+        <header style='float:right'>
+            <a href = '/admin' style='padding:10px'>Login</a>
+        </header>
+    {% endif %}
+    <br />
+    {% block content %}{% endblock %}

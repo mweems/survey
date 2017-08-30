@@ -21,7 +21,10 @@ def detail(request, question_id):
 
 def vote(request, question_id):
 	question = Question.objects.get(pk=question_id)
-	choice = question.choice_set.get(pk=request.POST['choice'])
+	try:
+		choice = question.choice_set.get(pk=request.POST['choice'])
+	except:
+		return render(request, 'detail.html', {'question': question, 'error_message': 'Please select an option'})
 	choice.votes += 1
 	choice.save()
 	question.has_voted_on = True

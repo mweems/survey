@@ -1,21 +1,10 @@
-<head>
-    <title>Survey</title>
-</head>
-<body>
-    {% if user.is_authenticated %}
-        <header>
-            <a href = "/questions/adminPage">Admin Page</a>
-            <a href="/logout">Log Out</a>
-        </header>
-    {% else %}
-        <header><a href = '/admin'>Admin Login</a></header>
-    {% endif %}
-    <br />
-    <h1>{{ question.question_text }}</h1>
+{% extends 'base.html' %}
+{% block content %}
+    <h2 style='text-align:center'>{{ question.question_text }}</h2>
 
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-    <form action="/questions/{{ question.id }}/vote/" method="post">
+    <form action="/questions/{{ question.id }}/vote/" method="post" style='text-align:center'>
         {% csrf_token %}
         {% for choice in question.choice_set.all %}
             <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
@@ -24,4 +13,4 @@
         <br />
         <input type="submit" value="Vote" />
     </form>
-</body>
+{% endblock %}
