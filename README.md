@@ -4,7 +4,9 @@ Navigate to the directory where you want to save this project
 
 _git clone https://github.com/mweems/survey.git_
 
-_cd survey_
+_cd survey/survey_
+
+run migrations _python manage.py migrate_
 
 create superuser _python manage.py createsuperuser_
 
