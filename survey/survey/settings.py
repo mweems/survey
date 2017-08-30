@@ -26,7 +26,7 @@ SECRET_KEY = 'pephj9pi0gb_5ksdn-)70jl2-f^%-mzz3mz+)$=sy-3ny*(ach'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+LOGIN_REDIRECT_URL = '/questions/adminPage/'
 # Application definition
 
 INSTALLED_APPS = [
@@ -84,12 +84,12 @@ DATABASES = {
     }
 }
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
-#}
+# }
 
 
 # Password validation

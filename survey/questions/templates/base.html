@@ -8,13 +8,13 @@
         <header class='right'>
             <a href = "/questions/adminPage" class='space'>Results</a>
             <a href = "/questions/" class='space'>Survey</a>
-            <a href = "/admin" class='space'>Admin</a>
             <a href="/logout" class='space'>Log Out</a>
         </header>
     {% else %}
-        <header class='center'>
-            <a href = '/admin' class='space'>Login</a>
+        <header class='right'>
+            <a href = "/questions/login" class='space'>Login</a>
         </header>
     {% endif %}
-    <br />
+    <hr>
     {% block content %}{% endblock %}
+</body>

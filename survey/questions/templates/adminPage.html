@@ -3,6 +3,52 @@
 {% block content %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{% static 'questions/style.css' %}" />
+<form action="/questions/add_question/" method="post" >
+    {% csrf_token %}
+    <label>Enter A New Question</label><br>
+    <input type="text" name="question">
+    <br />
+    <input type="submit" value="Add" />
+</form>
+{% if questions %}
+<form action="/questions/add_choice/" method="post" class='adminForm'>
+   {% csrf_token %}
+   <label>Select a Question</label><br>
+   {% for question in questions %}
+        <input type="radio" name="question" id="choice{{ forloop.counter }}" value="{{ question.id }}" />
+        <label for="choice{{ forloop.counter }}">{{ question }}</label><br>
+    {% endfor %}
+    <br>
+    <label>Enter A New Choice</label><br>
+    <input type="text" name="choice">
+    <br />
+    <input type="submit" value="Add" />
+</form>
+<form action="/questions/delete_question/" method="post" class='adminForm'>
+    {% csrf_token %}
+    <label>Delete A Question</label><br><br>
+    {% for question in questions %}
+        <input type="radio" name="question" id="choice{{ forloop.counter }}" value="{{ question.id }}" />
+        <label for="choice{{ forloop.counter }}">{{ question }}</label><br />
+    {% endfor %}
+    <br />
+    <input type="submit" value="Delete" />
+</form>
+<form action="/questions/delete_choice/" method="post" class='adminForm'>
+   {% csrf_token %}
+   <label>Delete A Choice</label><br><br>
+   {% for question in questions %}
+        <label >{{ question }}</label><br>
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        {% endfor %}<br>
+    {% endfor %}
+    <br>
+    <input type="submit" value="Delete" />
+</form>
+
+
     {% for question in questions %}
         <h2 class='center'>{{question}}</h2>
         {% for choice in choices %}
@@ -11,4 +57,9 @@
             {% endif %}
         {% endfor %}
     {% endfor %}
+{% else %}
+    <h2 class='right'>There are currently no questions created.</h2>
+{% endif %}
+
+
 {% endblock %}
