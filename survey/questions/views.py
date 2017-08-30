@@ -38,14 +38,7 @@ def deleteQuestion(request):
 	return redirect('adminPage')
 
 def addQuestion(request):
-	try:
-		Question.objects.create(question_text=request.POST['question'])
-	except:
-		question_list = Question.objects.all()
-		choices = Choice.objects.all()
-		context = {'questions': question_list, 'choices': choices, 'error_message': 'You must add a question'}
-		return render(request, 'adminPage.html', context)
-
+	Question.objects.create(question_text=request.POST['question'])
 	return redirect('adminPage')
 
 def addChoice(request):
@@ -55,7 +48,7 @@ def addChoice(request):
 	except:
 		question_list = Question.objects.all()
 		choices = Choice.objects.all()
-		context = {'questions': question_list, 'choices': choices, 'error_message': 'You must select a question and enter choice text'}
+		context = {'questions': question_list, 'choices': choices, 'error_message': 'You must select a question to add a choice'}
 		return render(request, 'adminPage.html', context)
 
 	return redirect('adminPage')
