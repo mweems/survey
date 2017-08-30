@@ -25,3 +25,5 @@ create a mysql database
 start the django server _python manage.py runserver_
 
 go to website http://localhost
+
+login with the user name and password you created
